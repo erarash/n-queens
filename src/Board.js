@@ -144,6 +144,23 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      let current = this.attributes;
+
+      let n = this.attributes[0].length;
+
+      for ( let y = 0 - n + 1; y < n + n - 1; y++ ) {
+        let count = 0;
+        for ( let x = 0; x < n; x++ ) {
+          if( x+y >= 0 && x+y < n ) {
+            if ( current[y+x][x] === 1 ) count++;
+            if ( count > 1 ) return true;
+          }
+        }
+      }
+
+
+
+      
       return false; // fixme
     },
 
