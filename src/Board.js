@@ -98,10 +98,8 @@
       let current = this.attributes;
 
       for ( let n in current) {
-        console.log(current[n]);
         let count = 0;
         for ( let i in current[n] ) {
-          console.log(i);
           if ( current[n][i] === 1 ) count++;
           if ( count > 1 ) return true;
         }
@@ -121,7 +119,17 @@
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      let current = this.attributes;
+
+      for ( let n in current) {
+        let count = 0;
+        for ( let i in current[n] ) {
+          if ( current[i][n] === 1 ) count++;
+          if ( count > 1 ) return true;
+        }
+      }
+
+      return false; 
     },
 
 
