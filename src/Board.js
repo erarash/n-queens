@@ -51,6 +51,10 @@
     },
 
     hasAnyQueensConflicts: function() {
+      // console.log(this.hasAnyRooksConflicts());
+      // console.log(this.hasAnyMajorDiagonalConflicts());
+      // console.log(this.hasAnyMinorDiagonalConflicts());
+
       return this.hasAnyRooksConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
     },
 
@@ -146,7 +150,10 @@
     hasAnyMajorDiagonalConflicts: function() {
       let current = this.attributes;
 
-      let n = this.attributes[0].length;
+      //console.log(current);
+      let n = this.attributes['n'];
+
+      if ( n === 0 ) return false;
 
       for ( let y = 0 - n + 1; y < n + n - 1; y++ ) {
         let count = 0;
@@ -174,7 +181,9 @@
     hasAnyMinorDiagonalConflicts: function() {
       let current = this.attributes;
 
-      let n = this.attributes[0].length;
+      let n = this.attributes['n'];
+
+      if ( n === 0 ) return false;
 
       for ( let y = 0 - n + 1; y < n + n - 1; y++ ) {
         let count = 0;
