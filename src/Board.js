@@ -51,10 +51,6 @@
     },
 
     hasAnyQueensConflicts: function() {
-      // console.log(this.hasAnyRooksConflicts());
-      // console.log(this.hasAnyMajorDiagonalConflicts());
-      // console.log(this.hasAnyMinorDiagonalConflicts());
-
       return this.hasAnyRooksConflicts() || this.hasAnyMajorDiagonalConflicts() || this.hasAnyMinorDiagonalConflicts();
     },
 
@@ -96,7 +92,7 @@
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
       for ( let i = 0; i < this.get('n'); i++ ) {
-        if( this.hasRowConflictAt(i) ) return true;
+        if ( this.hasRowConflictAt(i) ) return true;
       }
       return false; 
     },
@@ -143,11 +139,11 @@
 
       if ( n === 0 ) return false;
 
-      for ( let y = 0 - n + 1; y < n + n - 1; y++ ) {
+      for ( let y = 0 - n + 2; y < n + n - 2; y++ ) {
         let count = 0;
         for ( let x = 0; x < n; x++ ) {
-          if( y+x >= 0 && y+x < n ) {
-            if ( current[y+x][x] === 1 ) count++;
+          if ( y + x >= 0 && y + x < n ) {
+            if ( current[y + x][x] === 1 ) count++;
             if ( count > 1 ) return true;
           }
         }
@@ -168,7 +164,6 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       let current = this.attributes;
-
       let n = this.attributes['n'];
 
       if ( n === 0 ) return false;
@@ -182,7 +177,7 @@
           }
         }
       }
-      return false; // fixme
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
