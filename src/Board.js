@@ -85,28 +85,18 @@
     hasRowConflictAt: function(rowIndex) {
 
       let thisRow = this.get(rowIndex);
-      //console.log({thisRow});
       let count = 0;
-      for ( let n in thisRow ) {
-        if ( n === 1 ) {
-          count++;
-        }
-        //console.log('has conflict');
+      for ( let n of thisRow ) {
+        if ( n === 1 ) count++;
         if ( count > 1 ) return true;
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      let current = this.attributes;
-
-      for ( let n in current) {
-        let count = 0;
-        for ( let i in current[n] ) {
-          if ( current[n][i] === 1 ) count++;
-          if ( count > 1 ) return true;
-        }
+      for ( let i = 0; i < this.get('n'); i++ ) {
+        if( this.hasRowConflictAt(i) ) return true;
       }
       return false; 
     },
@@ -118,19 +108,19 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      let count = 0;
+      for ( let i = 0; i < this.get('n'); i++ ) {
+        if ( this.get(i)[colIndex] === 1 ) count++;
+        if ( count > 1 ) return true;
+      }
+      return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      let current = this.attributes;
-
-      for ( let n in current) {
-        let count = 0;
-        for ( let i in current[n] ) {
-          if ( current[i][n] === 1 ) count++;
-          if ( count > 1 ) return true;
-        }
+     
+      for ( let i = 0; i < this.get('n'); i++ ) {
+        if ( this.hasColConflictAt(i) ) return true;
       }
 
       return false; 
@@ -148,10 +138,8 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      let current = this.attributes;
-
-      //console.log(current);
-      let n = this.attributes['n'];
+      let current = this.rows();
+      let n = this.get('n');
 
       if ( n === 0 ) return false;
 
@@ -164,7 +152,7 @@
           }
         }
       }
-      return false; // fixme
+      return false;
     },
 
 
