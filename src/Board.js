@@ -140,7 +140,7 @@
         }
       }
       
-      return false; // fixme
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -179,7 +179,7 @@
         }
       }
       
-      return false; // fixme
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
