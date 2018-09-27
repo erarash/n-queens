@@ -128,7 +128,18 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+    // takes input which points to the row where column 0 of diagonal begins
+    hasMajorDiagonalConflictAt: function(val) {
+      let n = this.get('n');
+      let count = 0;
+
+      for ( let i = 0 ; i < n; i++ ) {
+        if ( i + val >= 0 && i + val < n ) {
+          if ( this.get(val + i)[i] === 1 ) count++;
+          if ( count > 1 ) return true;
+        }
+      }
+      
       return false; // fixme
     },
 
@@ -157,7 +168,17 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+    hasMinorDiagonalConflictAt: function(val) {
+      let n = this.get('n');
+      let count = 0;
+
+      for ( let i = 0 ; i < n; i++ ) {
+        if ( val - i >= 0 && val - i < n ) {
+          if ( this.get(val - i)[i] === 1 ) count++;
+          if ( count > 1 ) return true;
+        }
+      }
+      
       return false; // fixme
     },
 
