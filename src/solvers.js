@@ -61,101 +61,40 @@ window.findNRooksSolution = function(n) {
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
   
-  var solution = new Board({n: n}); //fixme
+  var solution = new Board({n: n});
   let allSolutions = [];
 
   if ( n === 1 ) return 1;
-  if ( n === 2 ) return 2;
-
-  //console.log(solution.rows());
 
   for ( let a = 0; a < n; a++ ) {
     solution = new Board({n: n});
     solution.togglePiece(0, a);
-    //console.log(solution.rows());
     solver(1);
-    //solution.togglePiece(0, a);
   }
-  
-
   
   //count is number of pieces placed
   function solver(count) {
-    console.log(`running solver with count ${count}`);
-    //for ( let row = 1; row < n; row++ ) {
-      let thisRow = solution.get(count);
-      for ( let col = 0; col < n; col++ ) {
-        console.log(`run col forloop with row ${count} and col ${col} and count ${count}`);
-        if ( thisRow[col] === 0 ) {
-          solution.togglePiece(count, col);
-          console.log('toggled piece');
-          if ( !solution.hasAnyRooksConflicts() ) {
-            console.log(`added a piece row ${count} and col is ${col}`);
-            if ( count + 1 === n ) {
-              console.log('pushed a solution');
-              allSolutions.push(solution);
-            } else {
-              console.log(`calling solver with count ${count+1}`);
-              solver(count+1);
-            }
-            solution.togglePiece(count,col);
-          } else if (solution.hasAnyRooksConflicts()) {
-            console.log('found conflict');
-            solution.togglePiece(count,col);
+    let thisRow = solution.get(count);
+    for ( let col = 0; col < n; col++ ) {
+      if ( thisRow[col] === 0 ) {
+        solution.togglePiece(count, col);
+        if ( !solution.hasAnyRooksConflicts() ) {
+          if ( count + 1 === n ) {
+            allSolutions.push(solution);
+          } else {
+            solver(count+1);
           }
+          solution.togglePiece(count,col);
+        } else {
+          solution.togglePiece(count,col);
         }
       }
-    //}
+    }
   }
 
   console.log('Number of solutions for ' + n + ' rooks:', allSolutions.length);
   console.log(allSolutions);
   return allSolutions.length;
-
-
-
-
-
-  // //count is number of pieces placed
-  // function solver(count){
-  //   console.log(`solving with count ${count}`);
-  //   for ( let row = 1; row < n; row++ ) {
-  //     let thisRow = solution[row];
-  //     console.log(thisRow);
-  //     for ( let col = 0; col < n; col++ ) {
-  //       if ( thisRow[col] === 0) {
-  //         console.log(`found a 0 at col ${col}`);
-  //         console.log(solution);
-  //         thisRow[col] = 1;
-  //         console.log(solution);
-  //         let newBoard = new Board(solution);
-  //         if ( newBoard.hasAnyRooksConflicts() === false ) {
-  //           console.log('no conflicts');
-  //           if (count + 1 === n) {
-  //             console.log('found one solution');
-  //             allSolutions.push(solution);
-  //           } else {
-  //             solver(count + 1 );
-  //             console.log('return after solving');
-  //           }
-  //         } else {
-  //           thisRow[col] = 0;
-  //           console.log(`solution after toggle row ${row} and col ${col}`);
-  //           console.log(solution);
-  //         }
-  //       }
-  //       console.log('CONTINUES');
-  //     }
-  //   }
-  //   console.log(`count is ${count} and current board is`);
-  //   console.log(solution);
-  // }
-
-  // console.log('ALL SOLUTIONS');
-  // console.log(allSolutions);
-
-  // console.log('Number of solutions for ' + n + ' rooks:', allSolutions.length);
-  // return allSolutions.length;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
